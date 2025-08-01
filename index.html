@@ -6,6 +6,21 @@
   <title>Rick and Morty API</title>
   <link rel="stylesheet" href="./output.css">
 </head>
+
+<select id="filterOption" class="p-2 rounded bg-gray-700 text-white">
+  <optgroup label="Estado">
+    <option value="status:alive">Vivo</option>
+    <option value="status:dead">Muerto</option>
+    <option value="status:unknown">Desconocido</option>
+  </optgroup>
+  <optgroup label="Especie">
+    <option value="species:Human">Humano</option>
+    <option value="species:Alien">Alien</option>
+    <option value="species:Robot">Robot</option>
+    <option value="species:Mythological Creature">Criatura mitológica</option>
+  </optgroup>
+</select>
+
 <body class="bg-gray-900 text-white min-h-screen p-4">
   <h1 class="text-4xl font-bold text-center mb-6">Rick and Morty - Personajes</h1>
 
@@ -46,6 +61,8 @@
       Siguiente
     </button>
   </div>
+
+ 
 
   <script src="./main.js"></script>
 </body>
