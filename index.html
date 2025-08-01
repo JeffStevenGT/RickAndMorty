@@ -6,10 +6,28 @@
     <title>Rick and Morty API</title>
     <link rel="stylesheet" href="./output.css" />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./main.js" defer></script>
   </head>
+
   <body
     class="bg-white text-black dark:bg-gray-900 dark:text-white min-h-screen flex flex-col"
   >
+    <div
+      id="modal"
+      class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50"
+    >
+      <div
+        class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg max-w-md w-full relative"
+      >
+        <button
+          id="modalCloseInside"
+          class="absolute top-2 right-2 text-white bg-red-500 rounded-full w-6 h-6 flex items-center justify-center"
+        >
+          ✕
+        </button>
+        <div id="modalContent" class="p-4 text-gray-900 dark:text-white"></div>
+      </div>
+    </div>
     <!--     <audio autoplay loop preload="auto" class="absolute z-90">
       <source src="./video/song.mp3" type="audio/mpeg" />
     </audio> -->
@@ -146,8 +164,6 @@
         />
       </a>
     </footer>
-
-    <script src="./main.js"></script>
   </body>
 </html>
 <div class="bg-gray-500"></div>

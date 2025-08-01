@@ -61,6 +61,7 @@ function renderCards(characters, startIndex = 0, limit = 8) {
 
   sliced.forEach((character) => {
     const card = document.createElement("div");
+    card.id = `character-${character.id}`;
     card.className =
       "bg-gray-100 text-black dark:bg-gray-800 dark:text-white p-4 rounded-xl shadow-md dark:shadow-[#4a648b] transition-all hover:shadow-green-500 flex flex-col items-center text-center cursor-pointer hover:scale-110";
 
@@ -71,7 +72,39 @@ function renderCards(characters, startIndex = 0, limit = 8) {
       <p class="text-sm text-gray-700 dark:text-gray-300">${character.species} - ${character.status}</p>
     `;
 
+    card.addEventListener("click", () => {
+      mostrarModal(character);
+      modal.classList.remove("hidden");
+    });
+
     container.appendChild(card);
+  });
+}
+
+function mostrarModal(character) {
+  modal.innerHTML = `
+    <div class="relative w-full max-w-2xl p-4 bg-gray-900 rounded-xl text-white shadow-xl">
+      <button id="modalCloseInside" class="absolute top-2 right-2 text-white text-2xl hover:text-red-500">&times;</button>
+      <div class="flex flex-col md:flex-row">
+        <img src="${character.image}" alt="${
+    character.name
+  }" class="w-48 h-auto rounded-lg mb-4 md:mb-0 md:mr-4" />
+        <div class="text-left space-y-2">
+          <h5 class="text-2xl font-bold">${character.name}</h5>
+          <p>Status: ${character.status}</p>
+          <p>Species: ${character.species}</p>
+          <p>Type: ${character.type || "Unknown"}</p>
+          <p>Gender: ${character.gender}</p>
+          <p>Origin: ${character.origin.name}</p>
+          <p>Location: ${character.location.name}</p>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const modalCloseInside = document.getElementById("modalCloseInside");
+  modalCloseInside.addEventListener("click", () => {
+    modal.classList.add("hidden");
   });
 }
 
@@ -113,6 +146,6 @@ video.addEventListener("click", () => {
     video.muted = false;
     video.play();
   } else {
-    video.pause(); // O puedes dejarlo reproduciendo si no deseas detenerlo
+    video.pause();
   }
 });
