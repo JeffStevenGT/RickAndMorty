@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rick and Morty API</title>
     <link rel="stylesheet" href="./output.css" />
+    <script src="./main.js" defer></script>
   </head>
   <body class="bg-gray-900 text-white min-h-screen w-full p-4">
     <audio autoplay loop preload="auto" class="absolute">
@@ -14,6 +15,36 @@
     <!-- Header -->
     <header
       class="bg-green-500 p-4 shadow-md z-10 absolute w-full left-0 top-0"
+
+<select id="filterOption" class="p-2 rounded bg-gray-700 text-white">
+  <optgroup label="Estado">
+    <option value="status:alive">Vivo</option>
+    <option value="status:dead">Muerto</option>
+    <option value="status:unknown">Desconocido</option>
+  </optgroup>
+  <optgroup label="Especie">
+    <option value="species:Human">Humano</option>
+    <option value="species:Alien">Alien</option>
+    <option value="species:Robot">Robot</option>
+    <option value="species:Mythological Creature">Criatura mitológica</option>
+  </optgroup>
+</select>
+
+<body class="bg-gray-900 text-white min-h-screen p-4">
+  <h1 class="text-4xl font-bold text-center mb-6">Rick and Morty - Personajes</h1>
+
+  <!-- Buscador -->
+  <div class="flex justify-center mb-6">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Buscar por nombre..."
+      class="px-4 py-2 bg-amber-50 rounded-l-lg text-black w-full max-w-md"
+    />
+    <button
+      id="searchButton"
+      class="bg-green-600 px-4 py-2 rounded-r-lg hover:bg-green-700 transition"
+
     >
       <h1 class="text-3xl font-bold text-center">Rick and Morty Universe</h1>
     </header>
@@ -89,8 +120,10 @@
 
     <script src="./main.js"></script>
 
+
     <footer class="bg-green-600 text-center py-4 absolute w-full left-0">
       <p>&copy; 2025 Rick and Morty Fan Page - Hecho por fans</p>
     </footer>
   </body>
+
 </html>
