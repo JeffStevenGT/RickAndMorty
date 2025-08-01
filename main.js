@@ -54,9 +54,12 @@ async function fetchCharacters(page = 1) {
   }
 }
 
-function renderCards(characters) {
+function renderCards(characters, startIndex = 0, limit = 8) {
   container.innerHTML = "";
-  characters.forEach((character) => {
+
+  const sliced = characters.slice(startIndex, startIndex + limit);
+
+  sliced.forEach((character) => {
     const card = document.createElement("div");
     card.className =
       "bg-gray-100 text-black dark:bg-gray-800 dark:text-white p-4 rounded-xl shadow-md dark:shadow-[#4a648b] transition-all hover:shadow-green-500 flex flex-col items-center text-center cursor-pointer hover:scale-110";
