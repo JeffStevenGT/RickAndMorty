@@ -70,28 +70,28 @@
           class="bg-white text-black dark:bg-gray-800 dark:text-white p-2 rounded-md"
         >
           <option value="">Estado</option>
-          <option value="alive">Vivo</option>
-          <option value="dead">Muerto</option>
-          <option value="unknown">Desconocido</option>
+          <option value="alive">Vivo 🫀</option>
+          <option value="dead">Muerto 💀</option>
+          <option value="unknown">Desconocido ❓</option>
         </select>
         <select
           id="speciesFilter"
           class="bg-white text-black dark:bg-gray-800 dark:text-white p-2 rounded-md"
         >
           <option value="">Especie</option>
-          <option value="human">Humano</option>
-          <option value="alien">Alienígena</option>
-          <option value="robot">Robot</option>
+          <option value="human">Humano 🧍</option>
+          <option value="alien">Alienígena 👽</option>
+          <option value="robot">Robot 🤖</option>
         </select>
         <select
           id="genderFilter"
           class="bg-white text-black dark:bg-gray-800 dark:text-white p-2 rounded-md"
         >
           <option value="">Género</option>
-          <option value="male">Masculino</option>
-          <option value="female">Femenino</option>
-          <option value="genderless">Sin género</option>
-          <option value="unknown">Desconocido</option>
+          <option value="male">Masculino 🚹</option>
+          <option value="female">Femenino 🚺</option>
+          <option value="genderless">Sin genero ⚧️</option>
+          <option value="unknown">Desconocido ❔</option>
         </select>
       </div>
     </section>
@@ -108,24 +108,138 @@
       <div class="flex justify-center gap-4 mb-12 flex-wrap">
         <button
           id="prevButton"
-          class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
+          class="px-4 py-2 rounded bg-green-600 hover:bg-green-700 transition disabled:opacity-50 cursor-pointer"
           disabled
         >
           Anterior
         </button>
         <button
           id="nextButton"
-          class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+          class="px-4 py-2 rounded bg-green-600 hover:bg-green-700 transition cursor-pointer"
         >
           Siguiente
         </button>
       </div>
     </div>
 
-    <!-- SECCION LOCACION -->
-    <div class="max-w-7xl mx-auto px-4"></div>
+    <!-- SECCIÓN LOCACIONES -->
+
+    <section id="location-section" class="py-6 px-4">
+      <h2
+        class="text-5xl pb-5 pt-8 font-bold mb-4 text-gray-900 dark:text-white text-center"
+      >
+        Locaciones
+      </h2>
+      <div
+        id="location-container"
+        class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      >
+        <!-- Cards dinámicas -->
+      </div>
+    </section>
+
+    <!-- Modal de Locación con degradado -->
+    <div
+      id="location-modal"
+      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50"
+    >
+      <div
+        class="bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900 text-black dark:text-white p-6 rounded-xl shadow-2xl max-w-xl w-full relative"
+      >
+        <button
+          id="close-location-modal"
+          class="absolute top-2 right-3 text-xl font-bold hover:text-red-500"
+        >
+          ×
+        </button>
+        <h3
+          id="modal-location-name"
+          class="text-xl font-bold mb-3 dark:text-green-400"
+        ></h3>
+        <p id="modal-location-type" class="mb-1"></p>
+        <p id="modal-location-dimension" class="mb-3"></p>
+
+        <div
+          id="modal-location-residents"
+          class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4"
+        >
+          <!-- Residents con imagen -->
+        </div>
+
+        <div class="flex justify-between">
+          <button
+            id="prev-residents"
+            class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded disabled:opacity-50 cursor-pointer"
+          >
+            Anterior
+          </button>
+          <button
+            id="next-residents"
+            class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded disabled:opacity-50 cursor-pointer"
+          >
+            Siguiente
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- SECCION EPISODIOS -->
-    <div class="max-w-7xl mx-auto px-4"></div>
+    <section id="episode-section" class="py-6 px-4">
+      <h2
+        class="text-5xl pb-5 pt-8 font-bold mb-4 text-gray-900 dark:text-white text-center"
+      >
+        Episodios
+      </h2>
+      <div
+        id="episode-container"
+        class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      >
+        <!-- Cards dinámicas -->
+      </div>
+    </section>
+
+    <!-- Modal con fondo degradado -->
+    <div
+      id="episode-modal"
+      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50"
+    >
+      <div
+        class="bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900 text-black dark:text-white p-6 rounded-xl shadow-2xl max-w-xl w-full relative"
+      >
+        <button
+          id="close-episode-modal"
+          class="absolute top-2 right-3 text-xl font-bold hover:text-red-500 cursor-pointer"
+        >
+          ×
+        </button>
+        <h3
+          id="modal-episode-name"
+          class="text-xl dark:text-green-400 font-bold mb-3"
+        ></h3>
+        <p id="modal-episode-code" class="mb-1"></p>
+        <p id="modal-episode-air-date" class="mb-3"></p>
+
+        <div
+          id="modal-episode-characters"
+          class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4"
+        ></div>
+
+        <div class="flex justify-between">
+          <button
+            id="prev-characters"
+            class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded disabled:opacity-50 cursor-pointer"
+          >
+            Anterior
+          </button>
+          <button
+            id="next-characters"
+            class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded disabled:opacity-50 cursor-pointer"
+          >
+            Siguiente
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer
