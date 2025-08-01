@@ -18,6 +18,7 @@ themeToggle.addEventListener("change", () => {
 });
 
 // Rick and Morty API
+// Rick and Morty API
 const container = document.getElementById("characters-container");
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
@@ -45,7 +46,7 @@ async function fetchCharacters(page = 1) {
   try {
     const res = await fetch(url);
     const data = await res.json();
-    renderCards(data.results);
+    renderCards(data.results.slice(0, 8)); // ✅ Solo muestra 8 personajes
     updateButtons(data.info);
   } catch (error) {
     container.innerHTML = `<p class="text-center w-full col-span-full text-red-400">No se encontraron resultados.</p>`;
@@ -65,8 +66,7 @@ function renderCards(characters, startIndex = 0, limit = 8) {
       "bg-gray-100 text-black dark:bg-gray-800 dark:text-white p-4 rounded-xl shadow-md dark:shadow-[#4a648b] transition-all hover:shadow-green-500 flex flex-col items-center text-center cursor-pointer hover:scale-110";
 
     card.innerHTML = `
-      <img src="${character.image}" alt="${character.name}"
-        class="w-32 h-32 object-cover rounded-full mb-4 border-4 border-green-500 hover:scale-105 transition-transform" />
+      <img src="${character.image}" alt="${character.name}" class="w-32 h-32 object-cover rounded-full mb-4 border-4 border-green-500 hover:scale-105 transition-transform" />
       <h3 class="text-xl font-bold mb-1">${character.name}</h3>
       <p class="text-sm text-gray-700 dark:text-gray-300">${character.species} - ${character.status}</p>
     `;
@@ -113,7 +113,7 @@ video.addEventListener("click", () => {
     video.muted = false;
     video.play();
   } else {
-    video.pause(); // O puedes dejarlo reproduciendo si no deseas detenerlo
+    video.pause();
   }
 });
 
@@ -270,7 +270,7 @@ function renderEpisodeCards(episodes) {
       "bg-gray-100 text-black dark:bg-gray-800 dark:text-white p-4 rounded-xl dark:shadow-[#4a648b] shadow-md transition hover:shadow-green-500 flex flex-col items-center text-center cursor-pointer hover:scale-110";
 
     const idText = document.createElement("h3");
-    idText.textContent = `ID: ${episode.id}`;
+    idText.textContent = `Episodio: ${episode.name}`;
     idText.className = "text-lg font-semibold mb-2";
 
     const code = document.createElement("p");
