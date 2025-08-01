@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rick and Morty API</title>
-  <link rel="stylesheet" href="./output.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rick and Morty API</title>
+    <link rel="stylesheet" href="./output.css" />
+    <script src="./main.js" defer></script>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen w-full p-4">
+    <audio autoplay loop preload="auto" class="absolute">
+      <source src="./video/song.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Header -->
+    <header
+      class="bg-green-500 p-4 shadow-md z-10 absolute w-full left-0 top-0"
 
 <select id="filterOption" class="p-2 rounded bg-gray-700 text-white">
   <optgroup label="Estado">
@@ -35,35 +44,86 @@
     <button
       id="searchButton"
       class="bg-green-600 px-4 py-2 rounded-r-lg hover:bg-green-700 transition"
+
     >
-      Buscar
-    </button>
-  </div>
+      <h1 class="text-3xl font-bold text-center">Rick and Morty Universe</h1>
+    </header>
 
-  <!-- Contenedor de personajes -->
-  <div id="characters-container" class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-    <!-- Tarjetas de personajes -->
-  </div>
-
-  <!-- Botones de navegación -->
-  <div class="flex justify-center mt-8 space-x-4">
-    <button
-      id="prevButton"
-      class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
-      disabled
+    <!-- Hero Section -->
+    <section
+      class="bg-cover bg-center h-72 lg:h-100 flex items-center justify-center text-center"
     >
-      Anterior
-    </button>
-    <button
-      id="nextButton"
-      class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition"
+      <video
+        muted
+        autoplay
+        loop
+        class="z-0 w-full w-cover mt-5 md:mt-7 lg:mt-10"
+      >
+        <source src="./video/rick-and-morty.mp4" type="video/mp4" />
+      </video>
+      <div
+        class="bg-black/60 p-6 rounded-xl z-10 absolute hover:shadow-2xl hover:shadow-green-600 hover:border-2 hover:border-green-600"
+      >
+        <h2 class="text-4xl font-bold mb-2">¡Explorá el Multiverso!</h2>
+        <p class="text-lg">
+          Acompañá a Rick y Morty en sus aventuras interdimensionales
+        </p>
+      </div>
+    </section>
+
+    <h1 class="text-4xl font-bold text-center mb-6">
+      Rick and Morty - Personajes
+    </h1>
+
+    <!-- Buscador -->
+    <div class="flex justify-center mb-6">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Buscar por nombre..."
+        class="px-4 py-2 bg-amber-50 rounded-l-lg text-black w-full max-w-md"
+      />
+      <button
+        id="searchButton"
+        class="bg-green-600 px-4 py-2 rounded-r-lg hover:bg-green-700 transition"
+      >
+        Buscar
+      </button>
+    </div>
+
+    <!-- Contenedor de personajes -->
+    <div
+      id="characters-container"
+      class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
     >
-      Siguiente
-    </button>
-  </div>
+      <!-- Tarjetas de personajes -->
+    </div>
 
- 
+    <!-- Botones de navegación -->
+    <div class="flex justify-center mt-8 space-x-4 mb-5">
+      <button
+        id="prevButton"
+        class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50 hover:scale-105 hover:shadow-2xl hover:shadow-green-600 hover:border-2 hover:border-green-600"
+        disabled
+      >
+        Anterior
+        <img src="./img/space-capsule-svgrepo-com (1).svg" alt="" />
+      </button>
+      <button
+        id="nextButton"
+        class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition hover:scale-105 hover:shadow-2xl hover:shadow-green-600 hover:border-2 hover:border-green-600"
+      >
+        Siguiente
+        <img src="./img/space-capsule-svgrepo-com.svg" alt="" />
+      </button>
+    </div>
 
-  <script src="./main.js"></script>
-</body>
+    <script src="./main.js"></script>
+
+
+    <footer class="bg-green-600 text-center py-4 absolute w-full left-0">
+      <p>&copy; 2025 Rick and Morty Fan Page - Hecho por fans</p>
+    </footer>
+  </body>
+
 </html>

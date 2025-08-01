@@ -38,7 +38,6 @@ async function obtenerPersonajes(pagina = 1, nombre = "", filtroTipo = "", filtr
 
     prevBtn.disabled = !datos.info.prev;
     nextBtn.disabled = !datos.info.next;
-
   } catch (error) {
     contenedor.innerHTML = `<p class="text-red-500">Error al conectar con la API.</p>`;
     console.error(error);
@@ -48,13 +47,14 @@ async function obtenerPersonajes(pagina = 1, nombre = "", filtroTipo = "", filtr
 function mostrarPersonajes(personajes) {
   contenedor.innerHTML = "";
 
-  personajes.forEach(personaje => {
+  personajes.forEach((personaje) => {
     const tarjeta = document.createElement("div");
-    tarjeta.className = "bg-gray-800 rounded-xl shadow-lg overflow-hidden";
+    tarjeta.className =
+      "bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl hover:shadow-green-600";
 
     tarjeta.innerHTML = `
       <img src="${personaje.image}" alt="${personaje.name}" class="w-full h-56 object-cover">
-      <div class="p-4 space-y-2">
+      <div class="p-4 space-y-2 ">
         <h2 class="text-xl font-semibold">${personaje.name}</h2>
         <p><span class="font-bold">Estado:</span> ${personaje.status}</p>
         <p><span class="font-bold">Especie:</span> ${personaje.species}</p>
