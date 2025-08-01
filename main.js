@@ -1,107 +1,115 @@
-const contenedor = document.querySelector("#characters-container");
-const prevBtn = document.querySelector("#prevButton");
-const nextBtn = document.querySelector("#nextButton");
-const searchBtn = document.querySelector("#searchButton");
-const searchInput = document.querySelector("#searchInput");
-const filterOption = document.querySelector("#filterOption"); // Asegúrate de tener este <select> en tu HTML
+// Dark Mode Toggle
+const themeToggle = document.getElementById("themeToggle");
+const root = document.documentElement;
+
+if (localStorage.getItem("theme") === "dark") {
+  root.classList.add("dark");
+  themeToggle.checked = true;
+}
+
+themeToggle.addEventListener("change", () => {
+  if (themeToggle.checked) {
+    root.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  } else {
+    root.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  }
+});
+
+// Rick and Morty API
+const container = document.getElementById("characters-container");
+const searchInput = document.getElementById("searchInput");
+const searchButton = document.getElementById("searchButton");
+const prevButton = document.getElementById("prevButton");
+const nextButton = document.getElementById("nextButton");
+
+const statusFilter = document.getElementById("statusFilter");
+const speciesFilter = document.getElementById("speciesFilter");
+const genderFilter = document.getElementById("genderFilter");
 
 let currentPage = 1;
-let currentSearch = "";
-let currentFilterTipo = ""; // Especio
-let currentFilterValor = ""; // Estado
 
-async function obtenerPersonajes(pagina = 1, nombre = "", filtroTipo = "", filtroValor = "") {
+async function fetchCharacters(page = 1) {
+  const name = searchInput.value.trim();
+  const status = statusFilter.value;
+  const species = speciesFilter.value;
+  const gender = genderFilter.value;
+
+  const url = `https://rickandmortyapi.com/api/character?page=${page}${
+    name ? `&name=${name}` : ""
+  }${status ? `&status=${status}` : ""}${species ? `&species=${species}` : ""}${
+    gender ? `&gender=${gender}` : ""
+  }`;
+
   try {
-    let url = `https://rickandmortyapi.com/api/character/?page=${pagina}`;
-
-    if (nombre) {
-      const nombreCodificado = nombre.replace(/ /g, "%20"); /*"%20" es el código que representa un espacio en url.*/ 
-      url += `&name=${nombreCodificado}`;
-    }
-
-    if (filtroTipo && filtroValor) {
-      const filtroValorCodificado = filtroValor.replace(/ /g, "%20");
-      url += `&${filtroTipo}=${filtroValorCodificado}`;
-    }
-
-    const respuesta = await fetch(url);
-
-    if (!respuesta.ok) {
-      contenedor.innerHTML = `<p class="text-red-500">No se encontraron personajes.</p>`;
-      prevBtn.disabled = true;
-      nextBtn.disabled = true;
-      return;
-    }
-
-    const datos = await respuesta.json();
-    mostrarPersonajes(datos.results);
-
-    prevBtn.disabled = !datos.info.prev;
-    nextBtn.disabled = !datos.info.next;
+    const res = await fetch(url);
+    const data = await res.json();
+    renderCards(data.results);
+    updateButtons(data.info);
   } catch (error) {
-    contenedor.innerHTML = `<p class="text-red-500">Error al conectar con la API.</p>`;
-    console.error(error);
+    container.innerHTML = `<p class="text-center w-full col-span-full text-red-400">No se encontraron resultados.</p>`;
+    prevButton.disabled = true;
+    nextButton.disabled = true;
   }
 }
 
-function mostrarPersonajes(personajes) {
-  contenedor.innerHTML = "";
+function renderCards(characters) {
+  container.innerHTML = "";
+  characters.forEach((character) => {
+    const card = document.createElement("div");
+    card.className =
+      "bg-gray-100 text-black dark:bg-gray-800 dark:text-white p-4 rounded-xl shadow-md dark:shadow-[#4a648b] transition-all hover:shadow-green-500 flex flex-col items-center text-center cursor-pointer hover:scale-110";
 
-  personajes.forEach((personaje) => {
-    const tarjeta = document.createElement("div");
-    tarjeta.className =
-      "bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl hover:shadow-green-600";
-
-    tarjeta.innerHTML = `
-      <img src="${personaje.image}" alt="${personaje.name}" class="w-full h-56 object-cover">
-      <div class="p-4 space-y-2 ">
-        <h2 class="text-xl font-semibold">${personaje.name}</h2>
-        <p><span class="font-bold">Estado:</span> ${personaje.status}</p>
-        <p><span class="font-bold">Especie:</span> ${personaje.species}</p>
-      </div>
+    card.innerHTML = `
+      <img src="${character.image}" alt="${character.name}"
+        class="w-32 h-32 object-cover rounded-full mb-4 border-4 border-green-500 hover:scale-105 transition-transform" />
+      <h3 class="text-xl font-bold mb-1">${character.name}</h3>
+      <p class="text-sm text-gray-700 dark:text-gray-300">${character.species} - ${character.status}</p>
     `;
 
-    contenedor.appendChild(tarjeta);
+    container.appendChild(card);
   });
 }
 
-// Eventos
-nextBtn.addEventListener("click", () => {
-  currentPage++;
-  obtenerPersonajes(currentPage, currentSearch, currentFilterTipo, currentFilterValor);
-});
+function updateButtons(info) {
+  prevButton.disabled = !info.prev;
+  nextButton.disabled = !info.next;
+}
 
-prevBtn.addEventListener("click", () => {
-  if (currentPage > 1) {
-    currentPage--;
-    obtenerPersonajes(currentPage, currentSearch, currentFilterTipo, currentFilterValor);
-  }
-});
-
-searchBtn.addEventListener("click", () => {
-  currentSearch = searchInput.value.trim();
-  const filtroSeleccionado = filterOption.value;
-
-  let filtroTipo = "";
-  let filtroValor = "";
-
-  if (filtroSeleccionado.includes(":")) {
-    [filtroTipo, filtroValor] = filtroSeleccionado.split(":");
-  }
-
-  currentFilterTipo = filtroTipo;
-  currentFilterValor = filtroValor;
+searchButton.addEventListener("click", () => {
   currentPage = 1;
-
-  obtenerPersonajes(currentPage, currentSearch, filtroTipo, filtroValor);
+  fetchCharacters(currentPage);
 });
 
-// Buscar también con Enter
-searchInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    searchBtn.click();
+prevButton.addEventListener("click", () => {
+  currentPage--;
+  fetchCharacters(currentPage);
+});
+
+nextButton.addEventListener("click", () => {
+  currentPage++;
+  fetchCharacters(currentPage);
+});
+
+[statusFilter, speciesFilter, genderFilter].forEach((filter) =>
+  filter.addEventListener("change", () => {
+    currentPage = 1;
+    fetchCharacters(currentPage);
+  })
+);
+
+// Inicializar la página
+fetchCharacters(currentPage);
+
+// video
+const video = document.getElementById("videoFondo");
+
+video.addEventListener("click", () => {
+  if (video.paused) {
+    video.muted = false;
+    video.play();
+  } else {
+    video.pause(); // O puedes dejarlo reproduciendo si no deseas detenerlo
   }
 });
-
-// Inicial
-obtenerPersonajes();

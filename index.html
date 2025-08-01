@@ -1,129 +1,153 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rick and Morty API</title>
     <link rel="stylesheet" href="./output.css" />
-    <script src="./main.js" defer></script>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body class="bg-gray-900 text-white min-h-screen w-full p-4">
-    <audio autoplay loop preload="auto" class="absolute">
+  <body
+    class="bg-white text-black dark:bg-gray-900 dark:text-white min-h-screen flex flex-col"
+  >
+    <!--     <audio autoplay loop preload="auto" class="absolute z-90">
       <source src="./video/song.mp3" type="audio/mpeg" />
-    </audio>
+    </audio> -->
 
-    <!-- Header -->
-    <header
-      class="bg-green-500 p-4 shadow-md z-10 absolute w-full left-0 top-0"
+    <label class="theme-switch flex fixed right-4 top-4 z-50">
+      <input type="checkbox" id="themeToggle" class="theme-switch__checkbox" />
+      <div class="theme-switch__container">
+        <div class="theme-switch__clouds"></div>
+        <div class="theme-switch__circle-container">
+          <div class="theme-switch__sun-moon-container">
+            <div class="theme-switch__moon">
+              <div class="theme-switch__spot"></div>
+              <div class="theme-switch__spot"></div>
+              <div class="theme-switch__spot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </label>
 
-<select id="filterOption" class="p-2 rounded bg-gray-700 text-white">
-  <optgroup label="Estado">
-    <option value="status:alive">Vivo</option>
-    <option value="status:dead">Muerto</option>
-    <option value="status:unknown">Desconocido</option>
-  </optgroup>
-  <optgroup label="Especie">
-    <option value="species:Human">Humano</option>
-    <option value="species:Alien">Alien</option>
-    <option value="species:Robot">Robot</option>
-    <option value="species:Mythological Creature">Criatura mitológica</option>
-  </optgroup>
-</select>
-
-<body class="bg-gray-900 text-white min-h-screen p-4">
-  <h1 class="text-4xl font-bold text-center mb-6">Rick and Morty - Personajes</h1>
-
-  <!-- Buscador -->
-  <div class="flex justify-center mb-6">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Buscar por nombre..."
-      class="px-4 py-2 bg-amber-50 rounded-l-lg text-black w-full max-w-md"
-    />
-    <button
-      id="searchButton"
-      class="bg-green-600 px-4 py-2 rounded-r-lg hover:bg-green-700 transition"
-
-    >
-      <h1 class="text-3xl font-bold text-center">Rick and Morty Universe</h1>
-    </header>
-
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section
-      class="bg-cover bg-center h-72 lg:h-100 flex items-center justify-center text-center"
+      class="relative w-full h-72 md:h-96 lg:h-[32rem] flex justify-center items-baseline overflow-hidden"
     >
-      <video
-        muted
-        autoplay
-        loop
-        class="z-0 w-full w-cover mt-5 md:mt-7 lg:mt-10"
-      >
-        <source src="./video/rick-and-morty.mp4" type="video/mp4" />
+      <video id="videoFondo" class="absolute w-screen h-full object-cover z-0">
+        <source src="./video/rick-and-morty4.mp4" type="video/mp4" />
       </video>
       <div
-        class="bg-black/60 p-6 rounded-xl z-10 absolute hover:shadow-2xl hover:shadow-green-600 hover:border-2 hover:border-green-600"
+        class="bg-black/60 py-2 px-4 rounded-xl z-10 text-center max-w-xl hover:shadow-xl mt-3"
       >
-        <h2 class="text-4xl font-bold mb-2">¡Explorá el Multiverso!</h2>
-        <p class="text-lg">
+        <h2 class="text-4xl font-bold text-white mb-1">
+          ¡Explorá el Multiverso!
+        </h2>
+        <p class="text-lg text-white">
           Acompañá a Rick y Morty en sus aventuras interdimensionales
         </p>
       </div>
     </section>
 
-    <h1 class="text-4xl font-bold text-center mb-6">
-      Rick and Morty - Personajes
-    </h1>
+    <!-- Buscador y Filtros -->
+    <section class="mt-10 mb-6 px-4">
+      <div class="flex flex-wrap justify-center gap-4">
+        <input type="text" id="searchInput" placeholder="Buscar por nombre"
+        class="px-4 py-2 bg-white text-black dark:bg-gray-800 dark:text-white
+        rounded-md w-full max-w-md border-1 border-gray-200 dark:border-gray-800
+        focus:outline-none focus:ring-1 focus:ring-white" " />
+        <button
+          id="searchButton"
+          class="bg-green-600 font-semibold dark:bg-green-700 px-4 py-2 rounded-md hover:bg-green-700 transition cursor-pointer hover:scale-90"
+        >
+          Buscar
+        </button>
+      </div>
 
-    <!-- Buscador -->
-    <div class="flex justify-center mb-6">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Buscar por nombre..."
-        class="px-4 py-2 bg-amber-50 rounded-l-lg text-black w-full max-w-md"
-      />
-      <button
-        id="searchButton"
-        class="bg-green-600 px-4 py-2 rounded-r-lg hover:bg-green-700 transition"
-      >
-        Buscar
-      </button>
+      <div class="flex flex-wrap justify-center gap-4 mt-4">
+        <select
+          id="statusFilter"
+          class="bg-white text-black dark:bg-gray-800 dark:text-white p-2 rounded-md"
+        >
+          <option value="">Estado</option>
+          <option value="alive">Vivo</option>
+          <option value="dead">Muerto</option>
+          <option value="unknown">Desconocido</option>
+        </select>
+        <select
+          id="speciesFilter"
+          class="bg-white text-black dark:bg-gray-800 dark:text-white p-2 rounded-md"
+        >
+          <option value="">Especie</option>
+          <option value="human">Humano</option>
+          <option value="alien">Alienígena</option>
+          <option value="robot">Robot</option>
+        </select>
+        <select
+          id="genderFilter"
+          class="bg-white text-black dark:bg-gray-800 dark:text-white p-2 rounded-md"
+        >
+          <option value="">Género</option>
+          <option value="male">Masculino</option>
+          <option value="female">Femenino</option>
+          <option value="genderless">Sin género</option>
+          <option value="unknown">Desconocido</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- SECCION PERSONAJES -->
+    <div class="max-w-7xl mx-auto px-4">
+      <!-- Cards Personajes-->
+      <section
+        id="characters-container"
+        class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10"
+      ></section>
+
+      <!-- Navegación -->
+      <div class="flex justify-center gap-4 mb-12 flex-wrap">
+        <button
+          id="prevButton"
+          class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
+          disabled
+        >
+          Anterior
+        </button>
+        <button
+          id="nextButton"
+          class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+        >
+          Siguiente
+        </button>
+      </div>
     </div>
 
-    <!-- Contenedor de personajes -->
-    <div
-      id="characters-container"
-      class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    <!-- SECCION LOCACION -->
+    <div class="max-w-7xl mx-auto px-4"></div>
+    <!-- SECCION EPISODIOS -->
+    <div class="max-w-7xl mx-auto px-4"></div>
+
+    <!-- Footer -->
+    <footer
+      class="bg-green-600 dark:bg-green-700 flex items-center justify-center text-center py-4 mt-auto gap-3"
     >
-      <!-- Tarjetas de personajes -->
-    </div>
-
-    <!-- Botones de navegación -->
-    <div class="flex justify-center mt-8 space-x-4 mb-5">
-      <button
-        id="prevButton"
-        class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50 hover:scale-105 hover:shadow-2xl hover:shadow-green-600 hover:border-2 hover:border-green-600"
-        disabled
+      <p>
+        &copy; 2025 Rick and Morty Fan Page - Hecho por alumnos de la fundacion
+      </p>
+      <a
+        href="https://www.fundaciondevalores.org/"
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        Anterior
-        <img src="./img/space-capsule-svgrepo-com (1).svg" alt="" />
-      </button>
-      <button
-        id="nextButton"
-        class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition hover:scale-105 hover:shadow-2xl hover:shadow-green-600 hover:border-2 hover:border-green-600"
-      >
-        Siguiente
-        <img src="./img/space-capsule-svgrepo-com.svg" alt="" />
-      </button>
-    </div>
+        <img
+          src="https://cdn.brandfetch.io/idYqRqXUhP/w/6667/h/1667/theme/light/logo.png?c=1dxbfHSJFAPEGdCLU4o5B"
+          alt="Logo Funval"
+          class="w-20 hover:scale-75"
+        />
+      </a>
+    </footer>
 
     <script src="./main.js"></script>
-
-
-    <footer class="bg-green-600 text-center py-4 absolute w-full left-0">
-      <p>&copy; 2025 Rick and Morty Fan Page - Hecho por fans</p>
-    </footer>
   </body>
-
 </html>
+<div class="bg-gray-500"></div>
